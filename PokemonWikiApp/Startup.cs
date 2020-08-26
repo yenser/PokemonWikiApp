@@ -28,6 +28,9 @@ namespace PokemonWikiApp
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddHttpClient();
+
+            services.AddSingleton<PokemonService>();
             services.AddSingleton<WeatherForecastService>();
         }
 

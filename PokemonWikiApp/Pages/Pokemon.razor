@@ -1,5 +1,39 @@
 ﻿@page "/pokemon"
 
+@using PokemonWikiApp.Data
+@using PokemonWikiApp.Data.Models
+@inject PokemonService PokemonService
+
 <h1>Pokemon</h1>
 
-Wiki Page
+@if (pokemonResp == null)
+{
+    <div>Loading....</div>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pokemon in pokemonResp.Results)
+            {
+                <tr>
+                    <td>@pokemon.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private PokemonResponse pokemonResp;
+
+    protected override async Task OnInitializedAsync()
+    {
+        pokemonResp = await PokemonService.GetPokemon();
+    }
+}
